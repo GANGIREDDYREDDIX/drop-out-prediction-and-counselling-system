@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SIH25102-symmars
 Smart India Hackathon 2025 Project - AI-based drop-out prediction and counseling system
 
@@ -52,3 +53,7 @@ SIH25102-symmars/
 ├── .gitignore
 ├── requirements.txt             # Dependencies
 ├── README.md
+=======
+# drop-out-prediction-and-counselling-system
+Attendance percentages live in one spreadsheet, test results in another, and fee-payment data in a third. No single view exists to signal that a learner is slipping in multiple areas simultaneously. Commercial analytics platforms promise predictive insights but demand funds and maintenance beyond the reach of public institutes.
+>>>>>>> eff18a0028444299db48991c25389a21b50bd1c3
