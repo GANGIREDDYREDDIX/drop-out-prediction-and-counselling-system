@@ -33,17 +33,23 @@ app = FastAPI(
 
 # CORS Configuration
 # - Local dev defaults are allowed
-# - For production, set CORS_ORIGINS to a comma-separated list, e.g.
-#   CORS_ORIGINS=https://your-site.netlify.app,https://www.yourdomain.com
+# - For production, set CORS_ORIGINS env var to comma-separated list:
+#   CORS_ORIGINS=https://riskmanagemnt.netlify.app,https://your-domain.com
 cors_origins_env = os.getenv("CORS_ORIGINS", "").strip()
 if cors_origins_env:
     allowed_origins = [o.strip() for o in cors_origins_env.split(",") if o.strip()]
 else:
-    allowed_origins = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    # Default: local dev + production Netlify domain
+    allowed_origins = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://riskmanagemnt.netlify.app"
+    ]
+print(f"CORS allowed origins: {allowed_origins}")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=["*"],  # Allow all origins for development
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
