@@ -11,8 +11,8 @@ services:
         value: 3.11.8
       # Set these in Render dashboard after first deploy (do NOT commit secrets)
       # - key: SMTP_EMAIL
-      #   value: your-gmail@gmail.com
+      #   value: likhithakadavakolla@gmail.com
       # - key: SMTP_PASSWORD
-      #   value: your-16-char-app-password
+      #   value: pnmjaxrnxouwckmj
       # - key: CORS_ORIGINS
-      #   value: https://your-site.netlify.app
+      #   value: https://riskmangement.netlify.app
