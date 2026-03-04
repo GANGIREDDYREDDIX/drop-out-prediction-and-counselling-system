@@ -1,11 +1,15 @@
 # Netlify Configuration for Frontend Deployment
 
 [build]
+# IMPORTANT: This repo is a monorepo; the Netlify site is the React app.
+# Setting `base` ensures Netlify runs dependency install/build inside `frontend-react/`.
+base = "frontend-react"
+
 # Build command
-command = "cd frontend-react && npm run build"
+command = "npm run build"
 
 # Directory to deploy
-publish = "frontend-react/build"
+publish = "build"
 
 # Environment variables
 [build.environment]
