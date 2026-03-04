@@ -1,0 +1,44 @@
+# Netlify Configuration for Frontend Deployment
+
+[build]
+# Build command
+command = "cd frontend-react && npm run build"
+
+# Directory to deploy
+publish = "frontend-react/build"
+
+# Environment variables
+[build.environment]
+NODE_VERSION = "18.17.0"
+NPM_VERSION = "9.6.7"
+
+# Build settings
+[build.processing]
+skip_processing = false
+
+# Redirects for React Router
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+# Headers for performance and security
+[[headers]]
+for = "/*"
+[headers.values]
+X-Frame-Options = "SAMEORIGIN"
+X-Content-Type-Options = "nosniff"
+X-XSS-Protection = "1; mode=block"
+Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache headers for static assets
+[[headers]]
+for = "/static/*"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache headers for HTML
+[[headers]]
+for = "/*.html"
+[headers.values]
+Cache-Control = "public, max-age=3600, must-revalidate"
