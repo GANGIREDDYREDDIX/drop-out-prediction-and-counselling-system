@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: dropout-backend
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.app:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      # Set these in Render dashboard after first deploy (do NOT commit secrets)
+      # - key: SMTP_EMAIL
+      #   value: your-gmail@gmail.com
+      # - key: SMTP_PASSWORD
+      #   value: your-16-char-app-password
+      # - key: CORS_ORIGINS
+      #   value: https://your-site.netlify.app

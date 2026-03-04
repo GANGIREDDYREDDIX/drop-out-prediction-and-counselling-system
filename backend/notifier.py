@@ -1,10 +1,18 @@
 import smtplib
 from email.message import EmailMessage
+import os
 import socket
 
 def send_email(to_email, subject, message):
-    EMAIL = "likhithakadavakolla@gmail.com"
-    PASSWORD = "pnmjaxrnxouwckmj"  # Gmail App Password (spaces removed)
+    EMAIL = os.getenv("SMTP_EMAIL") or os.getenv("EMAIL")
+    PASSWORD = os.getenv("SMTP_PASSWORD") or os.getenv("PASSWORD")
+    SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    SMTP_PORT = int(os.getenv("SMTP_PORT", "465"))
+    SMTP_TIMEOUT = float(os.getenv("SMTP_TIMEOUT", "5"))
+
+    if not EMAIL or not PASSWORD:
+        print("❌ EMAIL FAILED: missing SMTP credentials. Set SMTP_EMAIL and SMTP_PASSWORD (or EMAIL/PASSWORD).")
+        return False
 
     msg = EmailMessage()
     msg["From"] = EMAIL
@@ -12,11 +20,10 @@ def send_email(to_email, subject, message):
     msg["Subject"] = subject
     msg.set_content(message)
 
-    # Set aggressive timeout for faster operation
-    socket.setdefaulttimeout(5)
+    socket.setdefaulttimeout(SMTP_TIMEOUT)
     
     try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=5) as smtp:
+        with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=SMTP_TIMEOUT) as smtp:
             smtp.login(EMAIL, PASSWORD)
             smtp.send_message(msg)
         print("✅ EMAIL SENT TO:", to_email)
